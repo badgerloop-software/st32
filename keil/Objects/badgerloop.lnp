@@ -1,0 +1,17 @@
+--cpu Cortex-M7.fp.dp
+".\objects\main.o"
+".\objects\stm32f7xx_hal_msp.o"
+".\objects\stm32f7xx_it.o"
+".\objects\stm32f7xx_nucleo_144.o"
+".\objects\startup_stm32f767xx_1.o"
+".\objects\system_stm32f7xx_1.o"
+".\objects\stm32f7xx_hal.o"
+".\objects\stm32f7xx_hal_cortex.o"
+".\objects\stm32f7xx_hal_gpio.o"
+".\objects\stm32f7xx_hal_pwr.o"
+".\objects\stm32f7xx_hal_pwr_ex.o"
+".\objects\stm32f7xx_hal_rcc.o"
+".\objects\stm32f7xx_hal_rcc_ex.o"
+--ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20020000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\badgerloop.map" -o .\Objects\badgerloop.axf
