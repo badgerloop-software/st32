@@ -250,18 +250,6 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\include\stm32f7xx_hal_conf.h</PathWithFileName>
-      <FilenameWithoutPath>stm32f7xx_hal_conf.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>7</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
       <PathWithFileName>..\include\stm32f7xx_it.h</PathWithFileName>
       <FilenameWithoutPath>stm32f7xx_it.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -269,7 +257,7 @@
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>8</FileNumber>
+      <FileNumber>7</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

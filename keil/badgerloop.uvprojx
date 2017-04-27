@@ -410,11 +410,6 @@
               <FilePath>..\include\main.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f7xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\include\stm32f7xx_hal_conf.h</FilePath>
-            </File>
-            <File>
               <FileName>stm32f7xx_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\stm32f7xx_it.h</FilePath>
