@@ -378,9 +378,53 @@
       <Groups>
         <Group>
           <GroupName>src</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx_hal_msp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\stm32f7xx_hal_msp.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\stm32f7xx_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx_nucleo_144.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\stm32f7xx_nucleo_144.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>include</GroupName>
+          <Files>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\main.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx_hal_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\stm32f7xx_hal_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx_it.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\stm32f7xx_it.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx_nucleo_144.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\stm32f7xx_nucleo_144.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
