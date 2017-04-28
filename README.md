@@ -25,7 +25,7 @@ Video coming soon.
 
 1. [Install Keil](https://www.keil.com/demo/eval/arm.htm). You will need to fill out a form to be able to download it, and what you are downloading is a trial version of the software.
 2. Follow the [instructions](https://kb.wisc.edu/cae/page.php?id=32730) to connect to UW-Madison's Engineering License VPN.
-  * If you already have Cisco AnyConnect or another VPN app, connect to `dept-ra-cssc.vpn.wisc.edu` and use the group `ENGINEERING_LICENSING`.
+  + If you already have Cisco AnyConnect or another VPN app, connect to `dept-ra-cssc.vpn.wisc.edu` and use the group `ENGINEERING_LICENSING`.
 3. Open *File -> License Management* and navigate to the FlexLM License tab. Edit the Flex Server field and enter `8224@license-2.cae.wisc.edu` (this isn't sensitive information as you must already have an active CAE account and authenticate through the VPN).
 4. Check *Use Flex Server*, close the window and attempt to build.
 5. Clone this git repository. Open Git Bash or cmd/Terminal (if git is on your path), navigate to a directory that you keep git repositories (i.e. `~/Documents/gitRepos/`) and run `git clone https://github.com/badgerloop-software/st32.git st32dev` (you can name it anything you want).
