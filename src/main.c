@@ -43,7 +43,7 @@ int main(void) {
   *            AHB Prescaler                  = 1
   *            APB1 Prescaler                 = 4
   *            APB2 Prescaler                 = 2
-  *            HSE Frequency(Hz)              = 25000000
+  *            HSE Frequency(Hz)              = 8000000
   *            PLL_M                          = 25
   *            PLL_N                          = 432
   *            PLL_P                          = 2
@@ -114,8 +114,6 @@ static void Error_Handler(void) {
   * @note   The Base Address is 0x20020000 since this memory interface is the AXI.
   *         The Configured Region Size is 512KB because the internal SRAM1/2 
   *         memory size is 384KB.
-  * @param  None
-  * @retval None
   */
 static void MPU_Config(void) {
   MPU_Region_InitTypeDef MPU_InitStruct;
