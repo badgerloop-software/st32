@@ -35,25 +35,34 @@ int main(void) {
 }
 
 /**
-  * @brief  System Clock Configuration
-  *         The system Clock is configured as follow : 
-  *            System Clock source            = PLL (HSE)
-  *            SYSCLK(Hz)                     = 216000000
-  *            HCLK(Hz)                       = 216000000
-  *            AHB Prescaler                  = 1
-  *            APB1 Prescaler                 = 4
-  *            APB2 Prescaler                 = 2
-  *            HSE Frequency(Hz)              = 8000000
-  *            PLL_M                          = 25
-  *            PLL_N                          = 432
-  *            PLL_P                          = 2
-  *            PLL_Q                          = 9
-  *            PLL_R                          = 7
-  *            VDD(V)                         = 3.3
-  *            Main regulator output voltage  = Scale1 mode
-  *            Flash Latency(WS)              = 7
-  * @param  None
-  * @retval None
+  * The system Clock is configured as follow : 
+  * System Clock source            = PLL (HSE)
+  * SYSCLK(Hz)                     = 160000000 (160 MHz)
+  * HCLK(Hz)                       = 160000000 (160 MHz)
+  * AHB Prescaler                  = 1
+  * APB1 Prescaler                 = 4
+  * APB2 Prescaler                 = 2
+  * HSE Frequency(Hz)              = 8000000 (8 MHz)
+  * PLL_M                          = 8
+  * PLL_N                          = 320
+  * PLL_P                          = 2
+  * PLL_Q                          = 9
+  * PLL_R                          = 7
+  * VDD(V)                         = 3.3
+  * Main regulator output voltage  = Scale1 mode
+  * Flash Latency(WS)              = 7
+  * 
+  * f_VCO = f_PLL_in * (PLLN / PLLM)
+  * f_PLL_out = f_VCO / PLLP
+	* f_USB_SDMMC_RNG = f_VCO / PLLQ
+	* f_PLL_DSI_out = f_VCO / PLLR
+	*
+	* Constraints:
+	* PLLN - 50 <= PLLN <= 432 (f_VCO must be between 100-432 MHz)
+	* PLLM - 2 <= PLLM <= 63 (f_PLL_in must be 1-2 MHz)
+	* PLLP - do not exceed 180 MHz (0 = 2, 1 = 4, 2 = 6, 3 = 8)
+	* PLLQ - 
+	* PLLR - 
   */
 static void SystemClock_Config(void) {
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
