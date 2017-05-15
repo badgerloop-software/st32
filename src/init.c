@@ -1,7 +1,12 @@
 #include "../include/init.h"
 
 int initialize(void) {
+	
+	int result = 0;
 
+	/*************************************************************************/
+	/*                    Oscillator Initializations                         */
+	/*************************************************************************/
 	/* clear PLL_ON, PLLIS2_ON, PLLSAI_ON, HSE_ON */
 	RCC->CR &= 0xEAFEFFFF;
 	
@@ -43,6 +48,10 @@ int initialize(void) {
 		
 	/* update core clock variable */
 	SystemCoreClockUpdate();
+	/*************************************************************************/	
+	/*************************************************************************/	
 	
-	return 0;
+	nuc144_ioInit();
+	
+	return result;
 }

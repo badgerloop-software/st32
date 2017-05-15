@@ -1,20 +1,54 @@
 #ifndef _GPIO__H__
 
-/* 11 GPIO ports (A -> K)
- *
- * Defaults:
- *
- * A15: pulled up						JTDI
- * A14: pulled down						JTCK-SWCLK
- * A13: pulled up		very high speed	JTMS-SWDIO
- *  B4: pulled up						NJTRST
- *  B3: 				very high speed	JTDO/T RACES WO
- *
- */
+#include <stdint.h>
+#include <stdbool.h>
+#include "stm32f7xx.h"
 
-#define USER_SW	PC13	/* can be configured for PA0 */
-#define LED1	PB0		/* can be configured for PA5 */
-#define LED2	PB7		/* */
-#define LED3	PB14	/* */
+/*****************************************************************************/
+/*                                 GPIO Enums                                */
+/*****************************************************************************/
+typedef enum {
+	INPUT =		0,
+	OUTPUT =	1,
+	ALT =		2,
+	ANALOG =	3
+} GPIO_MODE;
+
+typedef enum {
+	LOW_SPEED =			0,
+	MEDIUM_SPEED =		1,
+	HIGH_SPEED =		2,
+	VERY_HIGH_SPEED =	3
+} GPIO_SPEED;
+
+typedef enum {
+	NONE = 		0,
+	PULL_UP =	1,
+	PULL_DOWN =	2
+} GPIO_PULLUP_STATE;
+/*****************************************************************************/
+/*****************************************************************************/
+
+
+/*****************************************************************************/
+/*                                 Functions                                 */
+/*****************************************************************************/
+int gpio_setClock(GPIO_TypeDef* port, bool state);
+int gpio_setMode(GPIO_TypeDef* port, uint8_t pin, GPIO_MODE mode);
+int gpio_openDrainState(GPIO_TypeDef* port, uint8_t pin, bool state);
+int gpio_setSpeed(GPIO_TypeDef* port, uint8_t pin, GPIO_SPEED speed);
+int gpio_setPullupState(GPIO_TypeDef* port, uint8_t pin, GPIO_PULLUP_STATE state);
+int gpio_readPin(GPIO_TypeDef* port, uint8_t pin);
+void gpio_setPin(GPIO_TypeDef* port, uint8_t pin);
+void gpio_resetPin(GPIO_TypeDef* port, uint8_t pin);
+int gpio_writePin(GPIO_TypeDef* port, uint8_t pin, bool state);
+/*****************************************************************************/
+/*****************************************************************************/
+
+#define IS_GPIO_PORT	port != GPIOA && port != GPIOB && port != GPIOC && \
+						port != GPIOD && port != GPIOE && port != GPIOF && \
+						port != GPIOG && port != GPIOH && port != GPIOI && \
+						port != GPIOJ && port != GPIOK
+
 
 #endif

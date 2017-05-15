@@ -1,7 +1,9 @@
 #ifndef _INIT__H__
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "stm32f7xx.h"
+#include "nuc144.h"
 
 /** System Clock source            = PLL (HSE w/ HSE_BYP, 8 MHz)
   * SYSCLK(Hz)                     = 160000000 (160 MHz)
