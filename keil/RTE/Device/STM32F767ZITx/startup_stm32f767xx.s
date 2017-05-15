@@ -1,21 +1,33 @@
-;   <o> Stack Size (in Bytes)
-Stack_Size      EQU     0x00000400
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; STM32F767xx devices vector table for MDK-ARM toolchain. 
+;
+; This module performs:
+; - Set the initial SP
+; - Set the initial PC == Reset_Handler
+; - Set the vector table entries with the exceptions ISR address
+; - Branches to __main in the C library (which eventually
+;   calls main()).
+;
+; After Reset the CortexM7 processor is in Thread mode,
+; priority is Privileged, and the Stack is set to Main.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
+Stack_Size      EQU     0x00000400
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
 __initial_sp
 
-; Heap Size (in Bytes)
-Heap_Size       EQU     0x00000200
 
+; Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+Heap_Size       EQU     0x00000200
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
 Heap_Mem        SPACE   Heap_Size
 __heap_limit
 
-                PRESERVE8
-                THUMB
-
+                PRESERVE8	; what's this for?
+                THUMB		; what's this for?
 
 ; Vector Table Mapped to Address 0 at Reset
                 AREA    RESET, DATA, READONLY

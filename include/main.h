@@ -1,8 +1,5 @@
-#ifndef __MAIN_H
-#define __MAIN_H
+#ifndef _MAIN__H__
 
-#define	STM32F767xx	1
-#include "stm32f7xx_hal.h"
-#include "stm32f7xx_nucleo_144.h"
+#include "init.h"
 
 #endif
