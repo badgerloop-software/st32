@@ -42,6 +42,7 @@ int gpio_readPin(GPIO_TypeDef* port, uint8_t pin);
 void gpio_setPin(GPIO_TypeDef* port, uint8_t pin);
 void gpio_resetPin(GPIO_TypeDef* port, uint8_t pin);
 int gpio_writePin(GPIO_TypeDef* port, uint8_t pin, bool state);
+int gpio_setAlternateFunc(GPIO_TypeDef* port, uint8_t pin, uint8_t val);
 /*****************************************************************************/
 /*****************************************************************************/
 

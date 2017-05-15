@@ -106,3 +106,13 @@ int gpio_writePin(GPIO_TypeDef* port, uint8_t pin, bool state) {
 			gpio_resetPin(port, pin);
 	return 0;
 }
+
+int gpio_setAlternateFunc(GPIO_TypeDef* port, uint8_t pin, uint8_t val) {
+	
+	if (verify_gpio_port(port) || pin > 15 ||
+		val > 15) return -1;
+	
+	port->AFR[pin / 8] &= ~(0xF << ((pin % 8) * 4));
+	port->AFR[pin / 8] |= val << ((pin % 8) * 4);
+	return 0;
+}

@@ -404,6 +404,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\nuc144.c</FilePath>
             </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -433,6 +438,11 @@
               <FileName>nuc144.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\nuc144.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\usart.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -22,14 +22,18 @@ bool readButton(void);
  *  B4: pulled up						NJTRST
  *  B3: 				very high speed	JTDO/T RACES WO
  */
-#define USER_SW	PC13	/* can be configured for PA0 */
-#define LED1	PB0		/* can be configured for PA5 */
-#define LED2	PB7		/* */
-#define LED3	PB14	/* */
+#define USER_SW		PC13	/* can be configured for PA0 */
+#define LEDG		PB0		/* can be configured for PA5 */
+#define LEDB		PB7
+#define LEDR		PB14
+#define MC01		PA8
+#define MC02		PC9
+#define USART3TX	PD8
+#define	USART3RX	PD9
 
-#define RED_PIN		0
+#define RED_PIN		14
 #define BLUE_PIN	7
-#define GREEN_PIN	14
+#define GREEN_PIN	0
 #define BUTTON_PIN	13
 /*****************************************************************************/
 /*****************************************************************************/
