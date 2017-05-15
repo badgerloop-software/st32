@@ -14,14 +14,15 @@ This repository is primarily for work with the STM32 Nucleo 144 F767ZI microcont
 
 ## Dependencies
 
-* [ARM's CMSIS](https://www.arm.com/products/processors/cortex-m/cortex-microcontroller-software-interface-standard.php)
-* [STM32CubeF7](http://www.st.com/en/embedded-software/stm32cubef7.html)
+* [ARM's CMSIS (CORE only)](https://www.arm.com/products/processors/cortex-m/cortex-microcontroller-software-interface-standard.php)
 
 Currently the repository does not include dependency source but instead leverages Keil's internal dependency management.
 
 ## Development Instructions
 
 Video coming soon.
+
+Note, current executable size is less than 32kB and the free version of Keil can still be used.
 
 1. [Install Keil](https://www.keil.com/demo/eval/arm.htm). You will need to fill out a form to be able to download it, and what you are downloading is a trial version of the software.
 2. Follow the [instructions](https://kb.wisc.edu/cae/page.php?id=32730) to connect to UW-Madison's Engineering License VPN.
