@@ -1,4 +1,5 @@
 #ifndef _INIT__H__
+#define _INIT__H__
 
 #include <stdint.h>
 #include <stdbool.h>

@@ -1,21 +1,24 @@
 #include "../include/nuc144.h"
 
 void nuc144_ioInit(void) {
-	gpio_setClock(GPIOB, true);	/* LEDs */
-	gpio_setClock(GPIOC, true);	/* button */
-	gpio_setClock(GPIOD, true);	/* UART */
 	
 	/* LEDs */
+	gpio_setClock(GPIOB, true);
 	gpio_setMode(GPIOB, 0, OUTPUT);
 	gpio_setMode(GPIOB, 7, OUTPUT);
 	gpio_setMode(GPIOB, 14, OUTPUT);
 	
 	/* button (no need for pull-up or pull-down) */
+	gpio_setClock(GPIOC, true);
 	gpio_setMode(GPIOC, 13, INPUT);	
 	
 	/* USART3 -> ST-LINKv2 -> USB virtual COM */
+	gpio_setClock(GPIOD, true);
+	gpio_setSpeed(GPIOD, 8, HIGH_SPEED);
+	gpio_setSpeed(GPIOD, 9, HIGH_SPEED);
 	gpio_setMode(GPIOD, 8, ALT);
 	gpio_setMode(GPIOD, 9, ALT);
+	usart_config(DEBUG_UART, HSI_SRC, 0, 115200);
 }
 
 void setRed(bool state) {

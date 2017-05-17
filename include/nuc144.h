@@ -1,7 +1,10 @@
 #ifndef _NUC144__H__
+#define _NUC144__H__
 
 #include <stdbool.h>
 #include "gpio.h"
+#include "usart.h"
+#include "config.h"
 
 void nuc144_ioInit(void);
 void setRed(bool state);

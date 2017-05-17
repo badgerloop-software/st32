@@ -1,4 +1,5 @@
 #ifndef _GPIO__H__
+#define _GPIO__H__
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -50,6 +51,5 @@ int gpio_setAlternateFunc(GPIO_TypeDef* port, uint8_t pin, uint8_t val);
 						port != GPIOD && port != GPIOE && port != GPIOF && \
 						port != GPIOG && port != GPIOH && port != GPIOI && \
 						port != GPIOJ && port != GPIOK
-
 
 #endif

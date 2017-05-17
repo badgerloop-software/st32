@@ -444,6 +444,11 @@
               <FileType>5</FileType>
               <FilePath>..\include\usart.h</FilePath>
             </File>
+            <File>
+              <FileName>config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\config.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
