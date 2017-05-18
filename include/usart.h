@@ -2,7 +2,7 @@
 #define _UART__H__
 
 #include <stdio.h>
-#include "stm32f767xx.h"
+#include "device/stm32f767xx.h"
 #include "config.h"
 #include "gpio.h"
 

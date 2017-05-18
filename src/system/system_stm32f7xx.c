@@ -16,7 +16,7 @@
  *                                 during program execution.
  *****************************************************************************/
 
-#include "../../include/ST/stm32f7xx.h"
+#include "../../include/device/stm32f7xx.h"
 #include "../../include/config.h" /* need to fix this */
 
 /* This variable is updated in three ways:

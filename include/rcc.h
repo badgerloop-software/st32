@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "stm32f7xx.h"
+#include "device/stm32f7xx.h"
 
 #endif

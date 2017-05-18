@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "stm32f7xx.h"
+#include "device/stm32f7xx.h"
 #include "nuc144.h"
 
 /** System Clock source            = PLL (HSE w/ HSE_BYP, 8 MHz)
