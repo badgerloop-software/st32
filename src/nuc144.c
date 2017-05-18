@@ -18,6 +18,8 @@ void nuc144_ioInit(void) {
 	gpio_setSpeed(GPIOD, 9, HIGH_SPEED);
 	gpio_setMode(GPIOD, 8, ALT);
 	gpio_setMode(GPIOD, 9, ALT);
+	gpio_setAlternateFunc(GPIOD, 8, 7);
+	gpio_setAlternateFunc(GPIOD, 9, 7);
 	usart_config(DEBUG_UART, HSI_SRC, 0, 115200);
 }
 

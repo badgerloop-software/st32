@@ -24,47 +24,6 @@ static int verify_usart(USART_TypeDef* usart) {
 }
 */
 
-static int usart_enableGPIO(USART_TypeDef* usart) {
-	
-	/* TODO: add all usart pins */
-	switch ((uint32_t) usart) {
-		case USART1_BASE: // TX: PA9, PB6, PB14, RX: PA10. PB7, PB15
-			//reg = ;
-			//bit = ;
-			break;
-		case USART2_BASE: // TX: PA2, RX: PA3
-			//reg = ;
-			//bit = ;
-			break;
-		case USART3_BASE: // TX: PB10, PD8, RX: PB11, PD9
-			gpio_setAlternateFunc(GPIOD, 8, 7);
-			gpio_setAlternateFunc(GPIOD, 9, 7);
-			break;
-		case UART4_BASE: // TX: PA0, PA12, RX: PA1, PA11
-			//reg = ;
-			//bit = ;
-			break;
-		case UART5_BASE: // TX: PB6, PB9, PB13, RX: PB5, PB8, PB12
-			//reg = ;
-			//bit = ;
-			break;
-		case USART6_BASE: // TX: RX:
-			//reg = ;
-			//bit = ;
-			break;
-		case UART7_BASE: // TX: PA15, PB4, RX: PB3, 
-			//reg = ;
-			//bit = ;
-			break;
-		case UART8_BASE: // TX: RX:
-			//reg = ;
-			//bit = ;
-			break;		
-		default: return -1;
-	}
-	return 0;
-}
-
 static int usart_enableClock(USART_TypeDef* usart) {
 	
 	__IO uint32_t *reg;
@@ -146,7 +105,6 @@ int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], u
 	}
 	
 	if (usart_setClockSource(usart, src)) return -1;
-	if (usart_enableGPIO(usart)) return -1;
 	
 	usart_enableClock(usart); /* don't need to check */
 	
