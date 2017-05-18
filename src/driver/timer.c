@@ -1,4 +1,4 @@
-#include "../include/timer.h"
+#include "../../include/driver/timer.h"
 
 void delay_ms(unsigned int period) {
 	unsigned int curr_count = ticks;

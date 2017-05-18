@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "device/stm32f7xx.h"
+#include "../device/stm32f7xx.h"
 
 /*****************************************************************************/
 /*                                 GPIO Enums                                */

@@ -1,4 +1,4 @@
-#include "../include/usart.h"
+#include "../../include/driver/usart.h"
 
 /* needed to retarget printf */
 FILE __stdout;

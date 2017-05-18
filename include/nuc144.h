@@ -2,8 +2,8 @@
 #define _NUC144__H__
 
 #include <stdbool.h>
-#include "gpio.h"
-#include "usart.h"
+#include "driver/gpio.h"
+#include "driver/usart.h"
 #include "config.h"
 
 int nuc144_ioInit(void);

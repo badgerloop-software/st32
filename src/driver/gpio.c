@@ -1,4 +1,4 @@
-#include "../include/gpio.h"
+#include "../../include/driver/gpio.h"
 
 static int verify_gpio_mode(GPIO_MODE mode) {
 	if ((uint32_t) mode > 3) return -1;
