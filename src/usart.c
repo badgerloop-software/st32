@@ -106,7 +106,7 @@ int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], u
 	
 	if (usart_setClockSource(usart, src)) return -1;
 	
-	usart_enableClock(usart); /* don't need to check */
+	usart_enableClock(usart);
 	
 	if (control) {
 		usart->CR1 = control[0] & ~(0xD);	/* don't set TE, RE, UE yet */
@@ -118,8 +118,12 @@ int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], u
 	switch (src) {
 		case APB1:		fck = APB1_F; break;
 		case SYSCLK:	fck = SystemCoreClock; break;
-		case HSI_SRC:	fck = HSI_VALUE; break;
-		case LSE_SRC:	return -1; /* not enabled */
+		case HSI_SRC:	
+			/* check if enabled */
+			fck = HSI_VALUE; break;
+		case LSE_SRC:	
+			/* check if enabled */
+			return -1;
 	}
 	
 	remainder = fck % baud;

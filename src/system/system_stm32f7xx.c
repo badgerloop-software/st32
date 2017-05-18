@@ -16,8 +16,8 @@
  *                                 during program execution.
  *****************************************************************************/
 
-#include "stm32f7xx.h"
-#include "../../../../include/config.h" /* need to fix this */
+#include "../../include/ST/stm32f7xx.h"
+#include "../../include/config.h" /* need to fix this */
 
 /* This variable is updated in three ways:
 	1) by calling CMSIS function SystemCoreClockUpdate()
