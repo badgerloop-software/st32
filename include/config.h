@@ -1,6 +1,8 @@
 #ifndef _CONFIG__H__
 #define _CONFIG__H__
 
+#include <stdint.h>
+
 #define DEBUG_UART	USART3
 
 /* Default value of the External oscillator in Hz */
@@ -14,6 +16,8 @@
 #endif
 
 extern uint32_t SystemCoreClock;
+extern volatile unsigned int ticks;
+
 #define APB1_F	SystemCoreClock >> APBPrescTable[(RCC->CFGR >> 10)]
 #define APB2_F	SystemCoreClock >> APBPrescTable[(RCC->CFGR >> 13)]
 

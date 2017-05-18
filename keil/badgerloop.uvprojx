@@ -409,6 +409,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\usart.c</FilePath>
             </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -448,6 +453,11 @@
               <FileName>config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\config.h</FilePath>
+            </File>
+            <File>
+              <FileName>timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\timer.h</FilePath>
             </File>
           </Files>
         </Group>

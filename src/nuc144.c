@@ -1,6 +1,6 @@
 #include "../include/nuc144.h"
 
-void nuc144_ioInit(void) {
+int nuc144_ioInit(void) {
 	
 	/* LEDs */
 	gpio_setClock(GPIOB, true);
@@ -21,6 +21,8 @@ void nuc144_ioInit(void) {
 	gpio_setAlternateFunc(GPIOD, 8, 7);
 	gpio_setAlternateFunc(GPIOD, 9, 7);
 	usart_config(DEBUG_UART, HSI_SRC, 0, 115200);
+	
+	return 0;
 }
 
 void setRed(bool state) {

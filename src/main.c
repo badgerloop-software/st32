@@ -14,15 +14,17 @@ int main(void) {
 	if (initialize()) fault();
 	
 	while (1) {
+		
 		if (readButton()) {
 			setRed(true);
 			setBlue(true);
 			setGreen(true);
-			printf("Hello!");
+			printf("Seconds: %d\r\n", ticks / 1000);
 			
 			/* to avoid spam */
 			while (readButton()) {;}
 		}
+		
 		else {
 			setRed(false);
 			setBlue(false);

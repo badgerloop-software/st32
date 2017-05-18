@@ -6,7 +6,7 @@
 #include "usart.h"
 #include "config.h"
 
-void nuc144_ioInit(void);
+int nuc144_ioInit(void);
 void setRed(bool state);
 void setBlue(bool state);
 void setGreen(bool state);

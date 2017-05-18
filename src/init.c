@@ -1,5 +1,10 @@
 #include "../include/init.h"
 
+/* can be used to roughly keep track of time, implement timeouts and blocking delays */
+/* this 32-bit count overflows after 49.7 days */
+volatile unsigned int ticks = 0;
+void SysTick_Handler(void) { ticks++; }
+
 int initialize(void) {
 	
 	int result = 0;
@@ -48,10 +53,13 @@ int initialize(void) {
 		
 	/* update core clock variable */
 	SystemCoreClockUpdate();
+		
+	/* setup SysTick timer, 1ms interrupts */
+	SysTick_Config(SystemCoreClock / 1000);
 	/*************************************************************************/	
 	/*************************************************************************/	
 	
-	nuc144_ioInit();
+	result = nuc144_ioInit();
 	
 	return result;
 }
