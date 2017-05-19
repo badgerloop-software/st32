@@ -18,13 +18,24 @@ int initialize(void) {
 	
 	/* configure PLLs */
 	RCC->PLLCFGR = 0x24003010;	/* set PLL bits to default	*/
-	RCC->PLLCFGR &= ~(RCC_PLLCFGR_PLLN_Msk);
-	RCC->PLLCFGR |= PLLN << RCC_PLLCFGR_PLLN_Pos;	/* set PLLN					*/
-	RCC->PLLCFGR |= PLLM << RCC_PLLCFGR_PLLM_Pos;	/* set PLLM					*/
-	RCC->PLLCFGR |= PLLP << RCC_PLLCFGR_PLLP_Pos;	/* set PLLP					*/
-	RCC->PLLCFGR |= PLLQ << RCC_PLLCFGR_PLLQ_Pos;	/* set PLLQ					*/
-	RCC->PLLCFGR |= PLLR << RCC_PLLCFGR_PLLR_Pos;	/* set PLLR 				*/
-	RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_HSE;			/* set HSE as PLL clock src	*/
+		
+	/* Set PLL configs */
+	RCC->PLLCFGR |= PLLN;
+	RCC->PLLCFGR |= PLLM;
+	RCC->PLLCFGR |= PLLP;
+	RCC->PLLCFGR |= PLLQ;
+	RCC->PLLCFGR |= PLLR;
+		
+	/* Clear out default bits, if you clear them first the board gets messed up */
+	/* (bonus points if you can answer why that is) */
+	RCC->PLLCFGR &= ~PLLN;
+	RCC->PLLCFGR &= ~PLLM;
+	RCC->PLLCFGR &= ~PLLP;
+	RCC->PLLCFGR &= ~PLLQ;
+	RCC->PLLCFGR &= ~PLLR;
+		
+	/* set HSE as PLL clock src	*/
+	RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_HSE;			
 		
 	/* set microcontroller clock outputs */
 	RCC->CFGR =  0x0;						/* make sure it is in reset state							*/

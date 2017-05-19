@@ -18,11 +18,11 @@
   * PLLQ[3:0] - 2 <= PLLQ <= 15 goal is to create 48 MHz (USB, SDMMC RNG clock src)
   * PLLR[2:0] - 2 <= PLLR <= 7 DSI clock src 
   */
-#define PLLN	160	/* f_VCO = f_PLL_in * (PLLN / PLLM) */
-#define PLLM 	4	/* 320 MHz = 8 MHz * (160 / 8)		*/
-#define PLLP	0	/* f_PLL_out = f_VCO / PLLP	(2)		*/
-#define PLLQ	10	/* f_USB_SDMMC_RNG = f_VCO / PLLQ	*/
-#define PLLR	5	/* f_PLL_DSI_out = f_VCO / PLLR		*/
+#define PLLN	((uint32_t) 160 << RCC_PLLCFGR_PLLN_Pos)	/* f_VCO = f_PLL_in * (PLLN / PLLM) */
+#define PLLM 	(((uint32_t) 4) << RCC_PLLCFGR_PLLM_Pos)	/* 320 MHz = 8 MHz * (160 / 8)		*/
+#define PLLP	(((uint32_t) 0) << RCC_PLLCFGR_PLLP_Pos)	/* f_PLL_out = f_VCO / PLLP	(2)		*/
+#define PLLQ	(((uint32_t) 10) << RCC_PLLCFGR_PLLQ_Pos)	/* f_USB_SDMMC_RNG = f_VCO / PLLQ	*/
+#define PLLR	(((uint32_t) 5) << RCC_PLLCFGR_PLLR_Pos)	/* f_PLL_DSI_out = f_VCO / PLLR		*/
 
 extern uint32_t SystemCoreClock;
 extern void SystemCoreClockUpdate(void);
