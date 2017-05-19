@@ -13,6 +13,8 @@ int main(void) {
 
 	if (initialize()) fault();
 	
+	printf("HCLK: %u kHz\r\n", HCLK / 1000);
+	
 	while (1) {
 		
 		if (readButton()) {

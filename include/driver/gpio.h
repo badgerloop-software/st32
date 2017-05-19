@@ -47,9 +47,4 @@ int gpio_setAlternateFunc(GPIO_TypeDef* port, uint8_t pin, uint8_t val);
 /*****************************************************************************/
 /*****************************************************************************/
 
-#define IS_GPIO_PORT	port != GPIOA && port != GPIOB && port != GPIOC && \
-						port != GPIOD && port != GPIOE && port != GPIOF && \
-						port != GPIOG && port != GPIOH && port != GPIOI && \
-						port != GPIOJ && port != GPIOK
-
 #endif

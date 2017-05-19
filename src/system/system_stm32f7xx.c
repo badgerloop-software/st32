@@ -17,7 +17,7 @@
  *****************************************************************************/
 
 #include "../../include/device/stm32f7xx.h"
-#include "../../include/config.h" /* need to fix this */
+#include "../../include/config.h"
 
 /* This variable is updated in three ways:
 	1) by calling CMSIS function SystemCoreClockUpdate()
@@ -86,9 +86,7 @@ void SystemInit(void) {
   *           constant and the selected clock source:
   *             
   *           - If SYSCLK source is HSI, SystemCoreClock will contain the HSI_VALUE(*)
-  *                                              
   *           - If SYSCLK source is HSE, SystemCoreClock will contain the HSE_VALUE(**)
-  *                          
   *           - If SYSCLK source is PLL, SystemCoreClock will contain the HSE_VALUE(**) 
   *             or HSI_VALUE(*) multiplied/divided by the PLL factors.
   *                
@@ -104,30 +102,28 @@ void SystemCoreClockUpdate(void) {
 	switch (tmp) {
 		
 		/* HSI used as system clock source */
-		case 0x00: SystemCoreClock = HSI_VALUE; break;
+		case RCC_CFGR_SWS_HSI: 
+			SystemCoreClock = HSI_VALUE;
+			break;
 		
 		/* HSE used as system clock source */
-		case 0x04: SystemCoreClock = HSE_VALUE; break;
+		case RCC_CFGR_SWS_HSE:
+			SystemCoreClock = HSE_VALUE; 
+			break;
 		
 		/* PLL used as system clock source */
-		case 0x08:  
+		case RCC_CFGR_SWS_PLL:  
 
 			/* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N
-			   SYSCLK = PLL_VCO / PLL_P */    
-			pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
+			 * SYSCLK = PLL_VCO / PLL_P */    
+			pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> RCC_PLLCFGR_PLLSRC_Pos;
 			pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
 			
-			/* HSE used as PLL clock source */
-			if (pllsource != 0)
-				pllvco = (HSE_VALUE / pllm) *
-				((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
-      
-			/* HSI used as PLL clock source */
-			else
-				pllvco = (HSI_VALUE / pllm) * 
-				((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);      
+			/* determine which clock source was used */
+			pllvco = ((pllsource ? HSE_VALUE : HSI_VALUE) / pllm) *
+				((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> RCC_PLLCFGR_PLLN_Pos);
 			
-			pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >> 16) + 1) * 2;
+			pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >> RCC_PLLCFGR_PLLP_Pos) + 1) * 2;
 			SystemCoreClock = pllvco / pllp;
 			break;
 		
@@ -135,6 +131,10 @@ void SystemCoreClockUpdate(void) {
 	}
 	
 	/* Compute HCLK frequency --------------------------------------------------*/
-	tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 4)];	/* Get HCLK prescaler */
-	SystemCoreClock >>= tmp;									/* HCLK frequency */
+	
+	/* Get HCLK prescaler */
+	tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos)];	
+	
+	/* HCLK frequency */
+	SystemCoreClock >>= tmp;									
 }

@@ -16,8 +16,8 @@ static int verify_gpio_pullup(GPIO_PULLUP_STATE state) {
 }
 
 static int verify_gpio_port(GPIO_TypeDef* port) {
-	if (IS_GPIO_PORT) return -1;
-	return 0;
+	if (IS_GPIO_ALL_INSTANCE(port)) return 0;
+	return -1;
 }
 
 int gpio_setClock(GPIO_TypeDef* port, bool state) {

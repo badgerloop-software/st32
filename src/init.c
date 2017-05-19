@@ -6,50 +6,49 @@ volatile unsigned int ticks = 0;
 void SysTick_Handler(void) { ticks++; }
 
 int initialize(void) {
-	
-	int result = 0;
 
 	/*************************************************************************/
 	/*                    Oscillator Initializations                         */
 	/*************************************************************************/
 	/* clear PLL_ON, PLLIS2_ON, PLLSAI_ON, HSE_ON */
-	RCC->CR &= 0xEAFEFFFF;
+	RCC->CR &= ~(RCC_CR_PLLSAION | RCC_CR_PLLI2SON | RCC_CR_PLLON | RCC_CR_HSEON);
 	
 	/* wait for those to be unlocked */
-	while (RCC->CR & (0x2A01 << 16)) {;}
+	while (RCC->CR & (RCC_CR_PLLSAIRDY | RCC_CR_PLLI2SRDY | RCC_CR_PLLRDY | RCC_CR_HSERDY)) {;}
 	
 	/* configure PLLs */
 	RCC->PLLCFGR = 0x24003010;	/* set PLL bits to default	*/
-	RCC->PLLCFGR |= PLLN << 6;	/* set PLLN					*/
-	RCC->PLLCFGR |= PLLM << 0;	/* set PLLM					*/
-	RCC->PLLCFGR |= PLLP << 16;	/* set PLLP					*/
-	RCC->PLLCFGR |= PLLQ << 24;	/* set PLLQ					*/
-	RCC->PLLCFGR |= PLLR << 28;	/* set PLLR 				*/
-	RCC->PLLCFGR |= 0x01 << 22;	/* set HSE as PLL clock src	*/
+	RCC->PLLCFGR &= ~(RCC_PLLCFGR_PLLN_Msk);
+	RCC->PLLCFGR |= PLLN << RCC_PLLCFGR_PLLN_Pos;	/* set PLLN					*/
+	RCC->PLLCFGR |= PLLM << RCC_PLLCFGR_PLLM_Pos;	/* set PLLM					*/
+	RCC->PLLCFGR |= PLLP << RCC_PLLCFGR_PLLP_Pos;	/* set PLLP					*/
+	RCC->PLLCFGR |= PLLQ << RCC_PLLCFGR_PLLQ_Pos;	/* set PLLQ					*/
+	RCC->PLLCFGR |= PLLR << RCC_PLLCFGR_PLLR_Pos;	/* set PLLR 				*/
+	RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC_HSE;			/* set HSE as PLL clock src	*/
 		
 	/* set microcontroller clock outputs */
-	RCC->CFGR =  0x0;		/* make sure it is in reset state							*/
-	RCC->CFGR |= 0x0 << 30;	/* MCO2 set to SYSCLK										*/
-	RCC->CFGR |= 0x7 << 27; /* MCO2 prescalar set to 5									*/
-	RCC->CFGR |= 0x3 << 21; /* MCO1 set to PLL											*/
-	RCC->CFGR |= 0x7 << 24; /* MCO1 prescalar set to 5									*/
-	RCC->CFGR |= 0x8 << 16;	/* RTC prescalar set to 8									*/
-	RCC->CFGR |= 0x4 << 13; /* APB2 (high speed, can't exceed 90 MHz) divided by 2		*/
-	RCC->CFGR |= 0x5 << 10; /* APB1 (low speed, can't exceed 45 MHz) clock divided by 4	*/
-	RCC->CFGR |= 0x0 <<  4; /* AHB prescalar set to 0 									*/
+	RCC->CFGR =  0x0;						/* make sure it is in reset state							*/
+	RCC->CFGR |= 0x0 << RCC_CFGR_MCO2_Pos;	/* MCO2 set to SYSCLK										*/
+	RCC->CFGR |= RCC_CFGR_MCO2PRE_Msk;		/* MCO2 prescalar set to 5									*/
+	RCC->CFGR |= RCC_CFGR_MCO1;				/* MCO1 set to PLL											*/
+	RCC->CFGR |= RCC_CFGR_MCO1PRE_Msk;		/* MCO1 prescalar set to 5									*/
+	RCC->CFGR |= RCC_CFGR_RTCPRE_3;			/* RTC prescalar set to 8									*/
+	RCC->CFGR |= RCC_CFGR_PPRE2_DIV2;		/* APB2 (high speed, can't exceed 90 MHz) divided by 2		*/
+	RCC->CFGR |= RCC_CFGR_PPRE1_DIV4;		/* APB1 (low speed, can't exceed 45 MHz) clock divided by 4	*/
+	RCC->CFGR |= RCC_CFGR_HPRE_DIV1;		/* AHB prescalar set to 0 									*/
 		
 	/* enable high-speed external oscillator */
-	RCC->CR |= 0x1 << 18;					/* set HSE_BYP, nucleo 144 uses 8 MHz signal from onboard ST-Link	*/
-	RCC->CR |= 0x1 << 16;					/* set HSE_ON to enable this clock source							*/
-	while (!(RCC->CR & (0x1 << 17))) {;}	/* poll HSE_RDY														*/
+	RCC->CR |= RCC_CR_HSEBYP;					/* set HSE_BYP, nucleo 144 uses 8 MHz signal from onboard ST-Link	*/
+	RCC->CR |= RCC_CR_HSEON;					/* set HSE_ON to enable this clock source							*/
+	while (!(RCC->CR & (RCC_CR_HSERDY))) {;}	/* poll HSE_RDY														*/
 		
 	/* enable PLL */
-	RCC->CR |= 0x1 << 24;					/* set PLL_ON	*/
-	while (!(RCC->CR & (0x1 << 24))) {;}	/* poll PLL_RDY	*/
+	RCC->CR |= RCC_CR_PLLON;					/* set PLL_ON	*/
+	while (!(RCC->CR & (RCC_CR_PLLRDY))) {;}	/* poll PLL_RDY	*/
 		
 	/* switch to PLL as system clock */
-	RCC->CFGR |= 0x2;						/* request switch to PLL		*/
-	while (!(RCC->CFGR & 0x8)) {;}			/* wait for PLL to be source	*/
+	RCC->CFGR |= RCC_CFGR_SW_PLL;				/* request switch to PLL		*/
+	while (!(RCC_CFGR_SWS_PLL)) {;}				/* wait for PLL to be source	*/
 		
 	/* update core clock variable */
 	SystemCoreClockUpdate();
@@ -58,8 +57,8 @@ int initialize(void) {
 	SysTick_Config(SystemCoreClock / 1000);
 	/*************************************************************************/	
 	/*************************************************************************/	
-	
-	result = nuc144_ioInit();
-	
-	return result;
+
+	nuc144_earlyInit();
+
+	return nuc144_ioInit();
 }

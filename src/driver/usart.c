@@ -17,13 +17,6 @@ int fgetc(FILE *f) {
 	return DEBUG_UART->RDR;
 }
 
-/*
-static int verify_usart(USART_TypeDef* usart) {
-	if (IS_USART) return -1;
-	return 0;
-}
-*/
-
 static int usart_enableClock(USART_TypeDef* usart) {
 	
 	__IO uint32_t *reg;

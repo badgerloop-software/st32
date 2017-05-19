@@ -380,11 +380,6 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\gpio.c</FilePath>
-            </File>
-            <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\init.c</FilePath>
@@ -395,24 +390,49 @@
               <FilePath>..\src\main.c</FilePath>
             </File>
             <File>
-              <FileName>rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\rcc.c</FilePath>
-            </File>
-            <File>
               <FileName>nuc144.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\nuc144.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>src/driver</GroupName>
+          <Files>
             <File>
-              <FileName>usart.c</FileName>
+              <FileName>gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\usart.c</FilePath>
+              <FilePath>..\src\driver\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\driver\rcc.c</FilePath>
             </File>
             <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\timer.c</FilePath>
+              <FilePath>..\src\driver\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\driver\usart.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>src/system</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_stm32f767xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\src\system\startup_stm32f767xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f7xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\system\system_stm32f7xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -420,9 +440,9 @@
           <GroupName>include</GroupName>
           <Files>
             <File>
-              <FileName>gpio.h</FileName>
+              <FileName>config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\include\gpio.h</FilePath>
+              <FilePath>..\include\config.h</FilePath>
             </File>
             <File>
               <FileName>init.h</FileName>
@@ -435,37 +455,71 @@
               <FilePath>..\include\main.h</FilePath>
             </File>
             <File>
-              <FileName>rcc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\include\rcc.h</FilePath>
-            </File>
-            <File>
               <FileName>nuc144.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\nuc144.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>include/driver</GroupName>
+          <Files>
             <File>
-              <FileName>usart.h</FileName>
+              <FileName>gpio.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\include\usart.h</FilePath>
+              <FilePath>..\include\driver\gpio.h</FilePath>
             </File>
             <File>
-              <FileName>config.h</FileName>
+              <FileName>rcc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\include\config.h</FilePath>
+              <FilePath>..\include\driver\rcc.h</FilePath>
             </File>
             <File>
               <FileName>timer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\include\timer.h</FilePath>
+              <FilePath>..\include\driver\timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\driver\usart.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Device</GroupName>
+          <GroupName>include/device</GroupName>
+          <Files>
+            <File>
+              <FileName>cmsis_armcc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\device\cmsis_armcc.h</FilePath>
+            </File>
+            <File>
+              <FileName>cmsis_compiler.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\device\cmsis_compiler.h</FilePath>
+            </File>
+            <File>
+              <FileName>core_cm7.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\device\core_cm7.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f7xx.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\device\stm32f7xx.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f767xx.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\device\stm32f767xx.h</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f7xx.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\device\system_stm32f7xx.h</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>
@@ -473,20 +527,7 @@
 
   <RTE>
     <apis/>
-    <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.0.1" condition="ARMv6_7_8-M Device">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.0.1"/>
-        <targetInfos>
-          <targetInfo name="Nucleo144-STM32F767ZI"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.2.0" condition="STM32F7 CMSIS">
-        <package name="STM32F7xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.9.0"/>
-        <targetInfos>
-          <targetInfo name="Nucleo144-STM32F767ZI"/>
-        </targetInfos>
-      </component>
-    </components>
+    <components/>
     <files>
       <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="1.4.0">
         <instance index="0" removed="1">RTE\Device\STM32F767ZITx\RTE_Device.h</instance>
@@ -495,12 +536,10 @@
         <targetInfos/>
       </file>
       <file attr="config" category="source" condition="STM32F767_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F7xx\Source\Templates\arm\startup_stm32f767xx.s" version="1.2.0">
-        <instance index="0">RTE\Device\STM32F767ZITx\startup_stm32f767xx.s</instance>
+        <instance index="0" removed="1">RTE\Device\STM32F767ZITx\startup_stm32f767xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.2.0" condition="STM32F7 CMSIS"/>
         <package name="STM32F7xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.9.0"/>
-        <targetInfos>
-          <targetInfo name="Nucleo144-STM32F767ZI"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="MDK\Templates\Inc\stm32f7xx_hal_conf.h" version="1.2.0">
         <instance index="0" removed="1">RTE\Device\STM32F767ZITx\stm32f7xx_hal_conf.h</instance>
@@ -509,12 +548,10 @@
         <targetInfos/>
       </file>
       <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F7xx\Source\Templates\system_stm32f7xx.c" version="1.2.0">
-        <instance index="0">RTE\Device\STM32F767ZITx\system_stm32f7xx.c</instance>
+        <instance index="0" removed="1">RTE\Device\STM32F767ZITx\system_stm32f7xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.2.0" condition="STM32F7 CMSIS"/>
         <package name="STM32F7xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.9.0"/>
-        <targetInfos>
-          <targetInfo name="Nucleo144-STM32F767ZI"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
     </files>
   </RTE>

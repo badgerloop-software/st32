@@ -1,26 +1,32 @@
 #include "../include/nuc144.h"
 
-int nuc144_ioInit(void) {
+/* instantiate UART & button + LEDs no matter what */
+void nuc144_earlyInit(void) {
 	
 	/* LEDs */
-	gpio_setClock(GPIOB, true);
-	gpio_setMode(GPIOB, 0, OUTPUT);
-	gpio_setMode(GPIOB, 7, OUTPUT);
-	gpio_setMode(GPIOB, 14, OUTPUT);
+	gpio_setClock(LED_GPIO, true);
+	gpio_setMode(LED_GPIO, GREEN_PIN, OUTPUT);
+	gpio_setMode(LED_GPIO, BLUE_PIN, OUTPUT);
+	gpio_setMode(LED_GPIO, RED_PIN, OUTPUT);
 	
 	/* button (no need for pull-up or pull-down) */
-	gpio_setClock(GPIOC, true);
-	gpio_setMode(GPIOC, 13, INPUT);	
+	gpio_setClock(BUTTON_GPIO, true);
+	gpio_setMode(BUTTON_GPIO, BUTTON_PIN, INPUT);	
 	
 	/* USART3 -> ST-LINKv2 -> USB virtual COM */
-	gpio_setClock(GPIOD, true);
-	gpio_setSpeed(GPIOD, 8, HIGH_SPEED);
-	gpio_setSpeed(GPIOD, 9, HIGH_SPEED);
-	gpio_setMode(GPIOD, 8, ALT);
-	gpio_setMode(GPIOD, 9, ALT);
-	gpio_setAlternateFunc(GPIOD, 8, 7);
-	gpio_setAlternateFunc(GPIOD, 9, 7);
-	usart_config(DEBUG_UART, HSI_SRC, 0, 115200);
+	gpio_setClock(USB_UART_GPIO, true);
+	gpio_setSpeed(USB_UART_GPIO, USB_UART_TX, HIGH_SPEED);
+	gpio_setSpeed(USB_UART_GPIO, USB_UART_RX, HIGH_SPEED);
+	gpio_setMode(USB_UART_GPIO, USB_UART_TX, ALT);
+	gpio_setMode(USB_UART_GPIO, USB_UART_RX, ALT);
+	gpio_setAlternateFunc(USB_UART_GPIO, USB_UART_TX, 7); /* TODO: define this somewhere? */
+	gpio_setAlternateFunc(USB_UART_GPIO, USB_UART_RX, 7); /* TODO: define this somewhere? */
+	usart_config(USB_UART, HSI_SRC, NULL, DEBUG_BAUD);
+}
+
+int nuc144_ioInit(void) {
+	
+	/* use this when developing a new driver */
 	
 	return 0;
 }
@@ -43,7 +49,6 @@ void setGreen(bool state) {
 inline bool readButton(void) {
 	return gpio_readPin(GPIOC, BUTTON_PIN);
 }
-
 
 /* experimenting with oscillator pins
  *

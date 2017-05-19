@@ -5,6 +5,8 @@
 #include "../device/stm32f767xx.h"
 #include "../config.h"
 
+#define USB_UART		USART3
+
 typedef enum {
 	APB1 =		0,
 	SYSCLK =	1,
@@ -13,11 +15,5 @@ typedef enum {
 } USART_CLK_SRC;
 			
 int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], uint32_t baud);
-
-/*
-#define IS_USART	usart != USART1 && usart != USART2 && usart != USART3 &&	\
-					usart != UART4 && usart != UART5 && usart != USART6 &&		\
-					usart != UART7 && usart != UART8
-*/
 
 #endif
