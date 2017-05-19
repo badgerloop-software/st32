@@ -6,15 +6,10 @@
 #define DEBUG_UART	USB_UART
 #define DEBUG_BAUD	115200
 
-/* Default value of the External oscillator in Hz */
-#ifndef	HSE_VALUE
+/* Oscillator Values */
 #define HSE_VALUE	((uint32_t) 8000000) 
-#endif
-
-/* Value of the Internal oscillator in Hz */
-#ifndef	HSI_VALUE
 #define HSI_VALUE	((uint32_t) 16000000) 
-#endif
+#define LSE_VALUE	((uint32_t)	32768)
 
 /* Sometimes documentation refers to sys clock as HCLK */
 #define HCLK		SystemCoreClock

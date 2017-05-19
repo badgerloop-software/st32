@@ -20,18 +20,14 @@ int initialize(void) {
 	RCC->PLLCFGR = 0x24003010;	/* set PLL bits to default	*/
 		
 	/* Set PLL configs */
-	RCC->PLLCFGR |= PLLN;
-	RCC->PLLCFGR |= PLLM;
-	RCC->PLLCFGR |= PLLP;
-	RCC->PLLCFGR |= PLLQ;
+	RCC->PLLCFGR |= PLLN; RCC->PLLCFGR |= PLLM;
+	RCC->PLLCFGR |= PLLP; RCC->PLLCFGR |= PLLQ;
 	RCC->PLLCFGR |= PLLR;
 		
 	/* Clear out default bits, if you clear them first the board gets messed up */
 	/* (bonus points if you can answer why that is) */
-	RCC->PLLCFGR &= ~PLLN;
-	RCC->PLLCFGR &= ~PLLM;
-	RCC->PLLCFGR &= ~PLLP;
-	RCC->PLLCFGR &= ~PLLQ;
+	RCC->PLLCFGR &= ~PLLN; RCC->PLLCFGR &= ~PLLM;
+	RCC->PLLCFGR &= ~PLLP; RCC->PLLCFGR &= ~PLLQ;
 	RCC->PLLCFGR &= ~PLLR;
 		
 	/* set HSE as PLL clock src	*/

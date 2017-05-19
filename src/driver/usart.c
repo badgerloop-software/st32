@@ -23,39 +23,15 @@ static int usart_enableClock(USART_TypeDef* usart) {
 	uint8_t bit;
 	
 	switch ((uint32_t) usart) {
-		case USART1_BASE: 
-			reg = &RCC->APB2ENR;
-			bit = 4;
-			break;
-		case USART2_BASE:
-			reg = &RCC->APB1ENR;
-			bit = 17;
-			break;
-		case USART3_BASE:
-			reg = &RCC->APB1ENR;
-			bit = 18;
-			break;
-		case UART4_BASE:
-			reg = &RCC->APB1ENR;
-			bit = 19;
-			break;
-		case UART5_BASE:
-			reg = &RCC->APB1ENR;
-			bit = 20;
-			break;
-		case USART6_BASE:
-			reg = &RCC->APB2ENR;
-			bit = 5;
-			break;
-		case UART7_BASE:
-			reg = &RCC->APB1ENR;
-			bit = 30;
-			break;
-		case UART8_BASE:
-			reg = &RCC->APB1ENR;
-			bit = 31;
-			break;
-		default: return -1;
+	case USART1_BASE: reg = &RCC->APB2ENR; bit = RCC_APB2ENR_USART1EN_Pos; break;
+	case USART2_BASE: reg = &RCC->APB1ENR; bit = RCC_APB1ENR_USART2EN_Pos; break;
+	case USART3_BASE: reg = &RCC->APB1ENR; bit = RCC_APB1ENR_USART3EN_Pos; break;
+	case UART4_BASE:  reg = &RCC->APB1ENR; bit = RCC_APB1ENR_UART4EN_Pos;  break;
+	case UART5_BASE:  reg = &RCC->APB1ENR; bit = RCC_APB1ENR_UART5EN_Pos;  break;
+	case USART6_BASE: reg = &RCC->APB2ENR; bit = RCC_APB2ENR_USART6EN_Pos; break;
+	case UART7_BASE:  reg = &RCC->APB1ENR; bit = RCC_APB1ENR_UART7EN_Pos;  break;
+	case UART8_BASE:  reg = &RCC->APB1ENR; bit = RCC_APB1ENR_UART8EN_Pos;  break;
+	default: return -1;
 	}
 	
 	*reg |= 0x1 << bit;
@@ -109,14 +85,18 @@ int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], u
 	
 	/* setup baud, fck / USARTDIV */
 	switch (src) {
-		case APB1:		fck = APB1_F; break;
-		case SYSCLK:	fck = SystemCoreClock; break;
-		case HSI_SRC:	
-			/* check if enabled */
+		case APB1:		
+			fck = APB1_F; 
+			break;
+		case SYSCLK:	
+			fck = SystemCoreClock;
+			break;
+		case HSI_SRC:	/* check if enabled */
+			if (!(RCC->CR & RCC_CR_HSION)) return -1;
 			fck = HSI_VALUE; break;
-		case LSE_SRC:	
-			/* check if enabled */
-			return -1;
+		case LSE_SRC:	/* check if enabled */
+			if (!(RCC->BDCR & RCC_BDCR_LSEON)) return -1;
+			fck = LSE_VALUE; break;
 	}
 	
 	remainder = fck % baud;
