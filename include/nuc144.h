@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "driver/gpio.h"
 #include "driver/usart.h"
+#include "driver/timer.h"
 #include "config.h"
 
 void nuc144_earlyInit(void);
@@ -12,6 +13,7 @@ void setRed(bool state);
 void setBlue(bool state);
 void setGreen(bool state);
 bool readButton(void);
+void fault(void);
 
 /*****************************************************************************/
 /*                           Board Specifics                                 */

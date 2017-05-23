@@ -1,14 +1,5 @@
 #include "../include/main.h"
 
-void fault(void) {
-	
-	setRed(true);
-	
-	while (1) {
-		
-	}
-}
-
 int main(void) {
 
 	clock_config();

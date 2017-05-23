@@ -50,6 +50,18 @@ inline bool readButton(void) {
 	return gpio_readPin(GPIOC, BUTTON_PIN);
 }
 
+void fault(void) {
+	
+	setRed(true);
+	
+	while (1) {
+		setBlue(true);
+		delay_ms(1000);
+		setBlue(false);
+		delay_ms(1000);
+	}
+}
+
 /* experimenting with oscillator pins
  *
  * gpio_setClock(GPIOA, true);

@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 #include "config.h"
-#include "device/stm32f7xx.h"
 #include "nuc144.h"
+#include "device/stm32f7xx.h"
 
 void clock_config(void);
 
