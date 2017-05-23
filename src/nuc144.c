@@ -3,6 +3,8 @@
 /* instantiate UART & button + LEDs no matter what */
 void nuc144_earlyInit(void) {
 	
+	uint32_t init_regs[3] = {0, 0, 0};
+	
 	/* LEDs */
 	gpio_setClock(LED_GPIO, true);
 	gpio_setMode(LED_GPIO, GREEN_PIN, OUTPUT);
@@ -21,7 +23,8 @@ void nuc144_earlyInit(void) {
 	gpio_setMode(USB_UART_GPIO, USB_UART_RX, ALT);
 	gpio_setAlternateFunc(USB_UART_GPIO, USB_UART_TX, 7); /* TODO: define this somewhere? */
 	gpio_setAlternateFunc(USB_UART_GPIO, USB_UART_RX, 7); /* TODO: define this somewhere? */
-	usart_config(USB_UART, HSI_SRC, NULL, DEBUG_BAUD);
+	init_regs[0] = USART_CR1_RXNEIE;
+	usart_config(USB_UART, HSI_SRC, init_regs, DEBUG_BAUD, true);
 }
 
 int nuc144_ioInit(void) {

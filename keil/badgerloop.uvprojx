@@ -389,6 +389,16 @@
               <FileType>1</FileType>
               <FilePath>..\src\nuc144.c</FilePath>
             </File>
+            <File>
+              <FileName>pcbuffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\pcbuffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>cli.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\cli.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -448,6 +458,16 @@
               <FileName>nuc144.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\nuc144.h</FilePath>
+            </File>
+            <File>
+              <FileName>pcbuffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\pcbuffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>cli.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\include\cli.h</FilePath>
             </File>
           </Files>
         </Group>

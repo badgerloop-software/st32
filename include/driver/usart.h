@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include "../device/stm32f767xx.h"
 #include "../config.h"
+#include "../pcbuffer.h"
 
 #define USB_UART		USART3
+#define NEWLINE_GUARD   (curr == '\n' && prev != '\r') || (curr == '\r' && prev != '\n')
 
 typedef enum {
 	APB1 =		0,
@@ -14,6 +16,6 @@ typedef enum {
 	LSE_SRC =	3
 } USART_CLK_SRC;
 			
-int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], uint32_t baud);
+int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], uint32_t baud, bool ie);
 
 #endif

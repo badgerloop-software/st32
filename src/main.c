@@ -8,7 +8,8 @@ int main(void) {
 
 	if (nuc144_ioInit()) fault();
 	
-	printf("HCLK: %u kHz\r\n", HCLK / 1000);
+	printf("HCLK: %u kHz\r", HCLK / 1000);
+	printPrompt();
 	
 	while (1) {
 		
@@ -28,9 +29,7 @@ int main(void) {
 			setGreen(false);
 		}
 		
-		/* echo what we get */
-		if (DEBUG_UART->ISR & USART_ISR_RXNE) 
-			printf("%c", DEBUG_UART->RDR);
+		processCommand();
 	}
 }
 

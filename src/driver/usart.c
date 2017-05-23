@@ -1,5 +1,7 @@
 #include "../../include/driver/usart.h"
 
+PC_Buffer usart3_tx, usart3_rx;
+
 /* needed to retarget printf */
 FILE __stdout;
 struct __FILE {
@@ -7,14 +9,48 @@ struct __FILE {
 };
 
 int fputc(int ch, FILE *f) {
-	while (!(DEBUG_UART->ISR & USART_ISR_TXE)) {;}
-	DEBUG_UART->TDR = ch;
+	while (pc_buffer_full(&usart3_tx)) {;}
+	pc_buffer_add(&usart3_tx, (char) ch);
+	USB_UART->CR1 |= USART_CR1_TXEIE;
 	return 0;
 }
 
 int fgetc(FILE *f) {
-	while (!(DEBUG_UART->ISR & USART_ISR_RXNE)) {;}
-	return DEBUG_UART->RDR;
+	int temp;
+	while (pc_buffer_empty(&usart3_rx)) {;}
+	pc_buffer_remove(&usart3_rx, (char*) &temp);
+	return temp;
+}
+
+static IRQn_Type uart_get_irq_num(USART_TypeDef* usart) {
+   switch((uint32_t) usart) {
+     case USART1_BASE: return USART1_IRQn;
+     case USART2_BASE: return USART2_IRQn;
+     case USART3_BASE: return USART3_IRQn;
+     case UART4_BASE:  return UART4_IRQn;
+     case UART5_BASE:  return UART5_IRQn;
+     case USART6_BASE: return USART6_IRQn;
+     case UART7_BASE:  return UART7_IRQn;
+     default: return SysTick_IRQn;	/* -1 */
+   }
+}
+
+static int usart_bufferInit(USART_TypeDef* usart) {
+	switch ((uint32_t) usart) {
+	//case USART1_BASE: break;
+	//case USART2_BASE: break;
+	case USART3_BASE:
+		pc_buffer_init(&usart3_tx, BUFSIZ);
+		pc_buffer_init(&usart3_rx, BUFSIZ);
+		break;
+	//case UART4_BASE: break;
+	//case UART5_BASE: break;
+	//case USART6_BASE: break;
+	//case UART7_BASE: break;
+	//case UART8_BASE: break;
+	default: return -1;	
+	}
+	return 0;
 }
 
 static int usart_enableClock(USART_TypeDef* usart) {
@@ -63,7 +99,7 @@ static int usart_setClockSource(USART_TypeDef* usart, USART_CLK_SRC src) {
 	return 0;
 }
 
-int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], uint32_t baud) {
+int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], uint32_t baud, bool ie) {
 	
 	uint32_t usartDiv, fck, remainder;
 	
@@ -73,14 +109,21 @@ int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], u
 		while (usart->CR1 & 0x1) {;}
 	}
 	
-	if (usart_setClockSource(usart, src)) return -1;
+	if (usart_setClockSource(usart, src) || usart_bufferInit(usart)) return -1;
 	
 	usart_enableClock(usart);
+	
+	usart->ICR |= 0x21Bf5;	/* clear any pending interrupts */
 	
 	if (control) {
 		usart->CR1 = control[0] & ~(0xD);	/* don't set TE, RE, UE yet */
 		usart->CR2 = control[1];
 		usart->CR3 = control[2];
+	}
+	
+	if (ie) {
+		NVIC_SetPriority(uart_get_irq_num(usart), 4);
+		NVIC_EnableIRQ(uart_get_irq_num(usart));
 	}
 	
 	/* setup baud, fck / USARTDIV */
@@ -107,8 +150,45 @@ int usart_config(USART_TypeDef* usart, USART_CLK_SRC src, uint32_t control[3], u
 	/* not sure how to handle OVER8 being set */
 	usart->BRR = usartDiv;
 	
-	usart->CR1 = 0xD; 		/* set TE, RE, UE */
-	usart->ICR |= 0x21Bf5;	/* clear any pending interrupts */
+	usart->CR1 |= 0xD; 		/* set TE, RE, UE */
 	
 	return 0;
+}
+
+void USART3_IRQHandler(void) {
+	
+	static char prev = '\0', curr = '\0';
+	
+	/* character received */
+	if (USART3->ISR & USART_ISR_RXNE) {
+		prev = curr;
+		curr = USART3->RDR;
+		
+		/* backspace */
+		if (curr == 0x08) {
+            if (!pc_buffer_empty(&usart3_rx))
+				usart3_rx.produce_count--;
+		}
+		
+		/* otherwise add the character */
+        else {
+            if (NEWLINE_GUARD) availableCount++;
+            if (!pc_buffer_full(&usart3_rx)) pc_buffer_add(&usart3_rx, curr);
+        }
+		
+		/* echo character to console */
+		if (!pc_buffer_full(&usart3_tx)) {
+			if ((curr == 0x08 && !pc_buffer_empty(&usart3_rx)) || curr != 0x08) /* not sure if this logic is working */
+				pc_buffer_add(&usart3_tx, curr);
+			USB_UART->CR1 |= USART_CR1_TXEIE;
+		}
+	}
+	
+	/* character ready to be sent */
+	if (USART3->ISR & USART_ISR_TXE) {
+		if (!pc_buffer_empty(&usart3_tx))
+			pc_buffer_remove(&usart3_tx, (char *) &USART3->TDR);
+		else
+			USB_UART->CR1 &= ~USART_CR1_TXEIE;
+	}
 }

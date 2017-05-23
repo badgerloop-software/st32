@@ -8,7 +8,7 @@
 #define DEBUG_UART	USB_UART
 #define DEBUG_BAUD	115200
 extern uint32_t SystemCoreClock;
-extern volatile unsigned int ticks;
+extern volatile unsigned int ticks, availableCount;
 extern void SystemCoreClockUpdate(void);
 /******************************************************************************/
 /******************************************************************************/
