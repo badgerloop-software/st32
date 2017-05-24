@@ -5,4 +5,11 @@
 #include <stdbool.h>
 #include "../device/stm32f7xx.h"
 
+#define HSE_BYP	1	/* current nucleo144 config needs this */
+#define LSE_BYP	0
+
+typedef enum clk_src {
+	HSI, HSE, PLL, PLLSAI, PLLI2S, LSI, LSE
+} clk_src_t;
+
 #endif
