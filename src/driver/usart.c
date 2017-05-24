@@ -165,22 +165,32 @@ void USART3_IRQHandler(void) {
 		curr = USART3->RDR;
 		
 		/* backspace */
-		if (curr == 0x08) {
-            if (!pc_buffer_empty(&usart3_rx))
+		if (curr == 0x08 || curr == 0x7F) {
+            if (!pc_buffer_empty(&usart3_rx)) {
 				usart3_rx.produce_count--;
+				
+				/* delete the character in console */
+				if (!pc_buffer_full(&usart3_tx)) {
+					pc_buffer_add(&usart3_tx, curr);
+					USART3->CR1 |= USART_CR1_TXEIE;
+				}
+			}
 		}
 		
 		/* otherwise add the character */
         else {
-            if (NEWLINE_GUARD) availableCount++;
+            if (NEWLINE_GUARD) usart3_rx.message_available++;
             if (!pc_buffer_full(&usart3_rx)) pc_buffer_add(&usart3_rx, curr);
+			if (!pc_buffer_full(&usart3_tx)) {
+				pc_buffer_add(&usart3_tx, curr);
+				if (curr == '\r') pc_buffer_add(&usart3_tx, '\n');
+				USART3->CR1 |= USART_CR1_TXEIE;
+			}
         }
 		
 		/* echo character to console */
 		if (!pc_buffer_full(&usart3_tx)) {
-			if ((curr == 0x08 && !pc_buffer_empty(&usart3_rx)) || curr != 0x08) /* not sure if this logic is working */
-				pc_buffer_add(&usart3_tx, curr);
-			USB_UART->CR1 |= USART_CR1_TXEIE;
+
 		}
 	}
 	

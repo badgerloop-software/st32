@@ -1,17 +1,17 @@
 #include "../include/cli.h"
 
-volatile unsigned int availableCount = 0;
+char buffer[BUFSIZ];
 
 inline void printPrompt(void) {
-	printf("\n=> ");
+	printf("=> ");
 }
 
 void processCommand(void) {
-	if (availableCount) {
-		
-		/* need to pull the characters out of the buffer */
-		
+	if (pc_buffer_getMessage(&USB_RX, buffer, BUFSIZ)) {
+		if (buffer[0] != '\0') {
+			/* need to pull the characters out of the buffer */
+			printf("Got: %s\r\n", buffer);
+		}
 		printPrompt();
-		availableCount--;
 	}
 }

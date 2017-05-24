@@ -3,12 +3,32 @@
 #include <stdint.h>
 
 /******************************************************************************/
+/*                           Utility Definitions                              */
+/******************************************************************************/
+#define APB1_F	SystemCoreClock >> APBPrescTable[(RCC->CFGR >> RCC_CFGR_PPRE1_Pos)]
+#define APB2_F	SystemCoreClock >> APBPrescTable[(RCC->CFGR >> RCC_CFGR_PPRE2_Pos)]
+#define HCLK	SystemCoreClock
+#define NEWLINE_GUARD   (curr == '\n' && prev != '\r') || (curr == '\r' && prev != '\n')
+
+typedef struct {
+	uint32_t produce_count, consume_count;
+	uint16_t buffer_SIZE, message_available;
+	char *array;
+} PC_Buffer;
+/******************************************************************************/
+/******************************************************************************/
+
+
+/******************************************************************************/
 /*                                   Globals                                  */
 /******************************************************************************/
 #define DEBUG_UART	USB_UART
 #define DEBUG_BAUD	115200
+#define USB_UART	USART3
+#define USB_RX		usart3_rx
+extern PC_Buffer	USB_RX;
 extern uint32_t SystemCoreClock;
-extern volatile unsigned int ticks, availableCount;
+extern volatile unsigned int ticks;
 extern void SystemCoreClockUpdate(void);
 /******************************************************************************/
 /******************************************************************************/
@@ -37,16 +57,6 @@ extern void SystemCoreClockUpdate(void);
 #define PLLP	(((uint32_t) 0) << RCC_PLLCFGR_PLLP_Pos)	/* f_PLL_out = f_VCO / PLLP	(2)		*/
 #define PLLQ	(((uint32_t) 10) << RCC_PLLCFGR_PLLQ_Pos)	/* f_USB_SDMMC_RNG = f_VCO / PLLQ	*/
 #define PLLR	(((uint32_t) 5) << RCC_PLLCFGR_PLLR_Pos)	/* f_PLL_DSI_out = f_VCO / PLLR		*/
-/******************************************************************************/
-/******************************************************************************/
-
-
-/******************************************************************************/
-/*                           Utility Definitions                              */
-/******************************************************************************/
-#define APB1_F	SystemCoreClock >> APBPrescTable[(RCC->CFGR >> RCC_CFGR_PPRE1_Pos)]
-#define APB2_F	SystemCoreClock >> APBPrescTable[(RCC->CFGR >> RCC_CFGR_PPRE2_Pos)]
-#define HCLK	SystemCoreClock
 /******************************************************************************/
 /******************************************************************************/
 

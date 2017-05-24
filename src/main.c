@@ -8,7 +8,7 @@ int main(void) {
 
 	if (nuc144_ioInit()) fault();
 	
-	printf("HCLK: %u kHz\r", HCLK / 1000);
+	printf("\r\nHCLK: %u kHz\r\n", HCLK / 1000);
 	printPrompt();
 	
 	while (1) {
@@ -18,6 +18,7 @@ int main(void) {
 			setBlue(true);
 			setGreen(true);
 			printf("Seconds: %d\r\n", ticks / 1000);
+			printPrompt();
 			
 			/* to avoid spam */
 			while (readButton()) {;}

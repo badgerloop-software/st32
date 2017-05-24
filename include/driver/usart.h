@@ -6,9 +6,6 @@
 #include "../config.h"
 #include "../pcbuffer.h"
 
-#define USB_UART		USART3
-#define NEWLINE_GUARD   (curr == '\n' && prev != '\r') || (curr == '\r' && prev != '\n')
-
 typedef enum {
 	APB1 =		0,
 	SYSCLK =	1,
