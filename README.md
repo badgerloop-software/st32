@@ -44,3 +44,37 @@ It's not always necessary to commit to \*.uv\*\* files as they store information
 
 All useful documentation is kept in a Subversion repository. To download it, simply install Subversion (svn) and run  
 `svn co http://svn.badgerloop.com/st32 st32docs`.
+
+## Build Info
+
+Compiler Arguments:
+
+```
+--c99 -c --cpu Cortex-M7.fp.dp -D__EVAL -g -O0 --apcs=interwork --split_sections
+-I./RTE/_Nucleo144-STM32F767ZI
+-IC:/Keil_v5/ARM/PACK/Keil/STM32F7xx_DFP/2.9.0/Drivers/CMSIS/Device/ST/STM32F7xx/Include
+-IC:/Keil_v5/ARM/CMSIS/Include
+-D__UVISION_VERSION="523" -DSTM32F767xx
+-o .\Objects\*.o --omf_browse .\Objects\*.crf --depend .\Objects\*.d
+```
+
+Assembler Arguments:
+
+```
+--cpu Cortex-M7.fp.dp --pd "__EVAL SETA 1" -g --apcs=interwork 
+-I .\RTE\_Nucleo144-STM32F767ZI 
+-I C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include 
+-I C:\Keil_v5\ARM\CMSIS\Include 
+--pd "__UVISION_VERSION SETA 523" --pd "STM32F767xx SETA 1" --list ".\Listings\*.lst" --xref -o "*.o" --depend "*.d" 
+```
+
+Linker Arguments:
+
+```
+--cpu Cortex-M7.fp.dp *.o 
+--ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20020000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\Listings\badgerloop.map" 
+-o .\Objects\badgerloop.axf 
+```
+
