@@ -5,4 +5,5 @@ Objects
 *.ini
 *.TMP
 *.scvd
+keil/JLinkLog.txt
 
