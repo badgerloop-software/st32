@@ -5,6 +5,7 @@ Objects
 *.ini
 *.TMP
 *.scvd
+*.swp
 keil/JLinkLog.txt
 Sample/BUILD
 

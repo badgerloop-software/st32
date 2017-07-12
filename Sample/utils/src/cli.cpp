@@ -9,7 +9,7 @@ volatile uint8_t availableCount = 0;
 void init_cli(void) {
     pc_buffer_init(&tx_buffer, BUFFER_SIZE);
     pc_buffer_init(&rx_buffer, BUFFER_SIZE);
-    usb_uart.printf("\n%s running.\n", APPLICATION_NAME);
+    usb_uart.printf("\r\n%s running.\r\n", APPLICATION_NAME);
 }
 
 bool messageAvailable(void) { return availableCount > 0; }
