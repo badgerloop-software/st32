@@ -6,4 +6,5 @@ Objects
 *.TMP
 *.scvd
 keil/JLinkLog.txt
+Sample/BUILD
 
